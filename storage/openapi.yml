@@ -7,7 +7,7 @@ paths:
   /events/distance:
     post:
       summary: Reports a single walking/running session distance
-      operationId: storage.report_distance
+      operationId: storage.record_distance
       description: Adds a session distance event
       requestBody:
         content:
@@ -23,7 +23,7 @@ paths:
   /events/steps:
     post:
       summary: Reports a single walking/running session step count
-      operationId: storage.report_steps
+      operationId: storage.record_steps
       description: Adds a session steps event
       requestBody:
         content:
