@@ -1,0 +1,2 @@
+datastore:
+  url: "sqlite:///storage.db"

@@ -10,3 +10,7 @@ wheels/
 .venv
 
 events.json
+
+# Testing
+testing/results.jtl
+/testing/report/
