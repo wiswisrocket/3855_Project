@@ -1,32 +1,20 @@
 param(
-    [Parameter(Position = 0)]
     [int]$Threads = 10,
-
-    [Parameter(Position = 1)]
     [int]$Loops = 10
 )
 
-# --- Adjust these paths to match your machine ---
-$JMeterBin   = "C:\Program Files (x86)\Apache\apache-jmeter-5.6.3\bin\jmeter.bat"
-$TestPlan    = Join-Path $PSScriptRoot "Lab2_Test_Plan.jmx"
-$ResultsFile = Join-Path $PSScriptRoot "results.jtl"
-$ReportDir   = Join-Path $PSScriptRoot "report"
-# --------------------------------------------------
+$COURSE_DIR = $PSScriptRoot
 
-Write-Host "Running with $Threads threads, $Loops loops"
+Remove-Item "$COURSE_DIR\results.jtl" -Force -ErrorAction SilentlyContinue
+Remove-Item "$COURSE_DIR\report" -Recurse -Force -ErrorAction SilentlyContinue
 
-# JMeter refuses to run if old results/report already exist
-if (Test-Path $ResultsFile) {
-    Remove-Item $ResultsFile -Force
-}
-if (Test-Path $ReportDir) {
-    Remove-Item $ReportDir -Recurse -Force
-}
+Write-Host "$Threads threads, $Loops loops"
 
-& $JMeterBin `
+& "C:\Program Files\Apache\apache-jmeter-5.6.3\bin\jmeter.bat" `
     -n `
-    -t $TestPlan `
-    -Jthreads=$Threads `
-    -Jloops=$Loops `
-    -l $ResultsFile `
-    -e -o $ReportDir
+    -t "$COURSE_DIR\Lab2_Test_Plan.jmx" `
+    "-Jthreads=$Threads" `
+    "-Jloops=$Loops" `
+    -l "$COURSE_DIR\results.jtl" `
+    -e `
+    -o "$COURSE_DIR\report"
