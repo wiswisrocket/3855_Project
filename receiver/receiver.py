@@ -1,72 +1,41 @@
 import json
 import os
 import requests
-
-# import yaml
+import time
+import yaml
+import logging
+import logging.config
 
 import connexion
 from connexion import NoContent
 
-# # Load app config (project root, one level up from receiver/)
-# CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "app_conf.yml")
-# with open(CONFIG_PATH, "r") as f:
-#     app_config = yaml.safe_load(f)
+LOG_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "log_conf.yml")
 
-# DATA_FILE = os.path.join(os.path.dirname(__file__), "..", app_config["datastore"]["filename"])
+with open(LOG_CONFIG_PATH, "r") as f:
+    log_config = yaml.safe_load(f)
 
+logging.config.dictConfig(log_config)
+logger = logging.getLogger("receiver")
 
-# def _load_data():
-#     """Load the events data file, creating a default structure if it doesn't exist yet."""
-#     if not os.path.exists(DATA_FILE):
-#         return {
-#             "events": [],
-#             "counts": {
-#                 "distance": 0,
-#                 "steps": 0
-#             }
-#         }
-
-#     with open(DATA_FILE, "r") as f:
-#         return json.load(f)
-
-
-# def _save_data(data):
-#     """Write the events data back to disk."""
-#     with open(DATA_FILE, "w") as f:
-#         json.dump(data, f, indent=2)
-
-
-# def _record_event(event_type, body):
-#     """Append a new event of the given type and bump its counter."""
-#     data = _load_data()
-
-#     data["events"].append({
-#         "type": event_type,
-#         "data": body
-#     })
-#     data["counts"][event_type] = data["counts"].get(event_type, 0) + 1
-
-#     _save_data(data)
 
 STORAGE = "http://localhost:8090"
 
-
 def report_distance(body):
-    print("Received distance event: ", body)
-    
-    # _record_event("distance", body)
-    # return NoContent, 201
+    body["trace_id"] = time.time_ns()
+    logger.info(f"Received 'distance' event - distance: {body['distance']} | trace_id:{body['trace_id']}")
 
     r = requests.post(f"{STORAGE}/events/distance", json=body)
+    logger.debug(f"Response for event distance (id: {body['trace_id']}) has status {r.status_code}")
+
     return r.text, r.status_code
 
 def report_steps(body):
-    print("Received steps event: ", body)
-
-    # _record_event("steps", body)
-    # return NoContent, 201
+    body["trace_id"] = time.time_ns()
+    logger.info(f"Received 'steps' event - steps: {body['steps']} | trace_id:{body['trace_id']}")
 
     r = requests.post(f"{STORAGE}/events/steps", json=body)
+    logger.debug(f"Response for event steps (id: {body['trace_id']}) has status {r.status_code}")
+
     return r.text, r.status_code
 
 

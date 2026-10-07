@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Runnr / Walkr
+  title: Walkr
   description: A sample API to illustrate OpenAPI concepts
 paths:
   /events/distance:
@@ -52,13 +52,13 @@ components:
         distance:
           type: number
           example: 5.2
-        unit:
-          type: string
-          example: "km"
         timestamp:
           type: string
           format: date-time
           example: "2016-08-29T09:12:33.001Z"
+        trace_id:
+          type: integer
+          example: 123456789
 
     SessionSteps:
       type: object

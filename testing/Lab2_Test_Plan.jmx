@@ -55,7 +55,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -92,7 +92,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_day">
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_day" enabled="true">
         <stringProp name="maximumValue">28</stringProp>
         <stringProp name="minimumValue">1</stringProp>
         <stringProp name="outputFormat"></stringProp>
@@ -101,7 +101,7 @@
         <stringProp name="variableName">random_day</stringProp>
       </RandomVariableConfig>
       <hashTree/>
-      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_minute">
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_minute" enabled="true">
         <stringProp name="variableName">random_minute</stringProp>
         <stringProp name="outputFormat">00</stringProp>
         <stringProp name="minimumValue">0</stringProp>
@@ -110,7 +110,7 @@
         <boolProp name="perThread">false</boolProp>
       </RandomVariableConfig>
       <hashTree/>
-      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_hour">
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_hour" enabled="true">
         <stringProp name="variableName">random_hour</stringProp>
         <stringProp name="outputFormat">00</stringProp>
         <stringProp name="minimumValue">0</stringProp>
@@ -130,7 +130,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Distance">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Distance" enabled="true">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>

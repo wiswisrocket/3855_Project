@@ -1,6 +1,6 @@
 from datetime import datetime, UTC
 from sqlalchemy.orm import DeclarativeBase, mapped_column
-from sqlalchemy import Integer, String, DateTime, Float
+from sqlalchemy import Integer, String, DateTime, Float, BigInteger
 
 
 class Base(DeclarativeBase):
@@ -13,6 +13,7 @@ class Distance(Base):
     distance = mapped_column(Float, nullable=False)
     timestamp = mapped_column(DateTime, default=lambda: datetime.now(UTC))
     recorded_timestamp = mapped_column(DateTime, default=lambda: datetime.now(UTC))
+    trace_id = mapped_column(BigInteger)
 
 class Steps(Base):
     __tablename__ = "steps"
@@ -21,3 +22,4 @@ class Steps(Base):
     steps = mapped_column(Integer, nullable=False)
     timestamp = mapped_column(DateTime, default=lambda: datetime.now(UTC))
     recorded_timestamp = mapped_column(DateTime, default=lambda: datetime.now(UTC))
+    trace_id = mapped_column(BigInteger)
