@@ -1,14 +1,12 @@
 import json
 import os
-import requests
-
 import yaml
 
 import connexion
 from connexion import NoContent
 
 # Load app config (project root, one level up from receiver/)
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "app_conf.yml")
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "app_conf.yml")
 with open(CONFIG_PATH, "r") as f:
     app_config = yaml.safe_load(f)
 

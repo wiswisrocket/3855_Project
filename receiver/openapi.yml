@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Runnr / Walkr
+  title: Walkr
   description: A sample API to illustrate OpenAPI concepts
 paths:
   /events/distance:

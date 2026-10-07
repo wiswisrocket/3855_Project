@@ -13,4 +13,11 @@ events.json
 
 # Testing
 testing/results.jtl
-/testing/report/
+testing/report/
+
+# Logs
+*.log
+
+# Misc
+defense
+storage.db
