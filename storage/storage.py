@@ -1,6 +1,7 @@
 import functools
 import connexion
 from connexion import NoContent
+from datetime import datetime
 
 from db import makeSession
 from models import Distance, Steps
@@ -22,7 +23,7 @@ def record_distance(session, body):
     event = Distance(
         device_id = body["device_id"],
         distance = body["distance"],
-        timestamp = body["timestamp"]
+        timestamp = datetime.fromisoformat(body["timestamp"])
     )
 
     session.add(event)
@@ -36,7 +37,7 @@ def record_steps(session, body):
     event = Steps(
         device_id = body["device_id"],
         steps = body["steps"],
-        timestamp = body["timestamp"]
+        timestamp = datetime.fromisoformat(body["timestamp"])
     )
     
     session.add(event)

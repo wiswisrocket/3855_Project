@@ -17,6 +17,7 @@ if db_url.startswith("sqlite:///"):
     db_url = f"sqlite:///{db_path}"
 
 ENGINE = create_engine(db_url)
+SessionLocal = sessionmaker(bind=ENGINE)
 
 def makeSession():
-    return sessionmaker(bind=ENGINE)
+    return SessionLocal()
