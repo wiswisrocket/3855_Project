@@ -1,6 +1,6 @@
 param(
     [int]$Threads = 10,
-    [int]$Loops = 10
+    [int]$Loops = 2
 )
 
 $COURSE_DIR = $PSScriptRoot
