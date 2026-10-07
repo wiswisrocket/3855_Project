@@ -14,7 +14,7 @@ db_url = app_config["datastore"]["url"]
 if db_url.startswith("sqlite:///"):
     db_name = db_url.removeprefix("sqlite:///")
     db_path = os.path.join(os.path.dirname(__file__), db_name)
-    db_url = f"sqlite///{db_path}"
+    db_url = f"sqlite:///{db_path}"
 
 ENGINE = create_engine(db_url)
 
