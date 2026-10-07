@@ -9,7 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-events.json
+data/
+data/events.json
 
 # Testing
 testing/results.jtl
