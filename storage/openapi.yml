@@ -36,6 +36,33 @@ paths:
         '400':
           description: invalid input, object invalid
 
+  /status:
+    get:
+      operationId: storage.get_status
+      summary: Storage health and record counts
+      responses:
+        '200':
+          description: storage is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  distance_count:
+                    type: integer
+                  steps_count:
+                    type: integer
+
+  /reset:
+    post:
+      summary: Drops and recreates database tables
+      operationId: storage.reset_db
+      responses:
+        '200':
+          description: database reset
+
 components:
   schemas:
     SessionDistance:
@@ -44,6 +71,7 @@ components:
         - device_id
         - distance
         - timestamp
+        
       properties:
         device_id:
           type: string

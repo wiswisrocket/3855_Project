@@ -6,8 +6,9 @@ import yaml
 import logging
 import logging.config
 
-from db import makeSession
-from models import Distance, Steps
+from db import makeSession, ENGINE
+from models import Distance, Steps, Base
+from sqlalchemy import select, func
 
 from datetime import datetime
 
@@ -63,5 +64,25 @@ def record_steps(session, body):
     print("Recorded steps: ", body)
     return NoContent, 201
 
+@use_db_session
+def get_status(session):
+    distance_count = session.execute(select(func.count()).select_from(Distance)).scalar()
+    steps_count = session.execute(select(func.count()).select_from(Steps)).scalar()
+
+    return {"status", "ok",
+            "distance_count", distance_count,
+            "setps_count", steps_count
+            }, 200
+
+def reset_db():
+    Base.metadata.drop_all(ENGINE)
+    print("Tables dropped!")
+
+    Base.metadata.create_all(ENGINE)
+    print("Tables created!")
+
+    return {"message": "database reset"}, 200
+
 app = connexion.AsyncApp(__name__, specification_dir='')
+
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)

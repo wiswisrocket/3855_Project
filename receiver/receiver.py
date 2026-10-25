@@ -38,7 +38,8 @@ def report_steps(body):
 
     return r.text, r.status_code
 
-
+def status():
+    return {"status", "ok"}, 200
 
 app = connexion.AsyncApp(__name__, specification_dir='')
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)

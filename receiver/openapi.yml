@@ -36,6 +36,14 @@ paths:
         '400':
           description: invalid input, object invalid
 
+  /status:
+    post:
+      summary: Returns 200 OK if the service is running as expected
+      operationId: receiver.get_status
+      responses:
+        '200':
+          description: receiver is running
+
 components:
   schemas:
     SessionDistance:
