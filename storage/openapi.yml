@@ -66,6 +66,36 @@ paths:
           description: session steps successfully received
         '400':
           description: invalid input, object invalid
+    get:
+      summary: Get all steps reports
+      operationId: storage.get_steps_reports
+      description: Returns a list of all steps reports received by the system after a certain timestamp (optional, returns all if not provided)
+      parameters:
+      - in: query
+        name: after
+        required: false
+        description: Return only reports after this timestamp
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: A list of steps reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SessionSteps'
+        '400':
+          description: invalid 'after' timestamp
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /status:
     get:
