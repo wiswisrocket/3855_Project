@@ -12,7 +12,7 @@ handlers:
     class: logging.FileHandler
     level: DEBUG
     formatter: simple
-    filename: storage\storage.log
+    filename: storage.log
 loggers:
   uvicorn:
     level: WARNING

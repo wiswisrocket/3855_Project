@@ -20,6 +20,9 @@ with open(LOG_CONFIG_PATH, "r") as f:
 logging.config.dictConfig(log_config)
 logger = logging.getLogger("storage")
 
+# A fresh MySQL container has no tables; create_all skips tables that already exist
+Base.metadata.create_all(ENGINE)
+
 
 def use_db_session(func):
     @functools.wraps(func)
@@ -71,7 +74,7 @@ def get_status(session):
 
     return {"status": "ok",
             "distance_count": distance_count,
-            "setps_count": steps_count
+            "steps_count": steps_count
             }, 200
 
 def reset_db():

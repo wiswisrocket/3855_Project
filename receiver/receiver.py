@@ -18,7 +18,7 @@ logging.config.dictConfig(log_config)
 logger = logging.getLogger("receiver")
 
 
-STORAGE = "http://localhost:8090"
+STORAGE = os.getenv("STORAGE_SERVICE_URL", "http://localhost:8090")
 
 def report_distance(body):
     body["trace_id"] = time.time_ns()
@@ -39,7 +39,7 @@ def report_steps(body):
     return r.text, r.status_code
 
 def get_status():
-    return {"status", "ok"}, 200
+    return {"status": "ok"}, 200
 
 app = connexion.AsyncApp(__name__, specification_dir='')
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)
