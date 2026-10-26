@@ -19,6 +19,37 @@ paths:
           description: session distance successfully received
         '400':
           description: invalid input, object invalid
+    get:
+      summary: Get all distance reports
+      operationId: storage.get_distance_reports
+      description: Returns a list of all distance reports received by the system after a certain timestamp (optional, returns all if not provided)
+      parameters:
+      - in: query
+        name: after
+        required: false
+        description: Return only reports after this timestamp
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: A list of distance reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SessionDistance'
+        '400':
+          description: invalid 'after' timestamp
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
 
   /events/steps:
     post:

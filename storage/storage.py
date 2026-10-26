@@ -67,6 +67,26 @@ def record_steps(session, body):
     print("Recorded steps: ", body)
     return NoContent, 201
 
+
+@use_db_session
+def get_distance_reports(session, after=None):
+    query = select(Distance)
+
+    if after:
+        try:
+            cutoff = datetime.fromisoformat(after)
+        except:
+            logger.warning(f"Rejected distance request: invalid 'after' value {after!r}")
+            return {"message": f"Invalid timestamp: {after}"}, 400
+        query = query.where(Distance.recorded_timestamp > cutoff)
+
+    reports = session.scalars(query).all()
+
+    logger.debug(f"Found {len(reports)} distance reports after {after}.")
+
+    return [r.to_json() for r in reports], 200
+
+
 @use_db_session
 def get_status(session):
     distance_count = session.execute(select(func.count()).select_from(Distance)).scalar()

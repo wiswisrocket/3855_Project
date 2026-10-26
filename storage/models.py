@@ -24,3 +24,11 @@ class Steps(Base):
     timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
     recorded_timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
     trace_id = mapped_column(BigInteger)
+
+def to_json(self):
+    return {
+        "device_id": self.device_id,
+        "distance": self.distance,
+        "timestamp": self.timestamp.isoformat(),
+        "trace_id": self.trace_id,
+    }
