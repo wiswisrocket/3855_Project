@@ -7,4 +7,4 @@ ENV PYTHONUNBUFFERED=1
 COPY . /app
 WORKDIR /app
 
-CMD ["python", "alfred.py"]
+CMD ["python", "hermes.py"]

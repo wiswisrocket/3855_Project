@@ -10,4 +10,4 @@ COPY . /app
 WORKDIR /app
 
 EXPOSE 9010
-CMD ["uvicorn", "jarvis:app", "--host", "0.0.0.0", "--port", "9010"]
+CMD ["uvicorn", "pythia:app", "--host", "0.0.0.0", "--port", "9010"]
