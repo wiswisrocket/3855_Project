@@ -1,2 +1,0 @@
-datastore:
-  url: "mysql://walkr_user:walkr_passwd@localhost/walkr_db"
