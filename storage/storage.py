@@ -69,9 +69,9 @@ def get_status(session):
     distance_count = session.execute(select(func.count()).select_from(Distance)).scalar()
     steps_count = session.execute(select(func.count()).select_from(Steps)).scalar()
 
-    return {"status", "ok",
-            "distance_count", distance_count,
-            "setps_count", steps_count
+    return {"status": "ok",
+            "distance_count": distance_count,
+            "setps_count": steps_count
             }, 200
 
 def reset_db():

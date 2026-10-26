@@ -37,7 +37,7 @@ paths:
           description: invalid input, object invalid
 
   /status:
-    post:
+    get:
       summary: Returns 200 OK if the service is running as expected
       operationId: receiver.get_status
       responses:

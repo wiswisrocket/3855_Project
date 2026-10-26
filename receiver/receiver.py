@@ -38,7 +38,7 @@ def report_steps(body):
 
     return r.text, r.status_code
 
-def status():
+def get_status():
     return {"status", "ok"}, 200
 
 app = connexion.AsyncApp(__name__, specification_dir='')
