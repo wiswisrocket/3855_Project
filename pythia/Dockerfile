@@ -9,5 +9,5 @@ RUN pip install connexion[uvicorn] connexion[swagger-ui] redis pyyaml
 COPY . /app
 WORKDIR /app
 
-EXPOSE 9010
-CMD ["uvicorn", "pythia:app", "--host", "0.0.0.0", "--port", "9010"]
+EXPOSE 8011
+CMD ["uvicorn", "pythia:app", "--host", "0.0.0.0", "--port", "8011"]

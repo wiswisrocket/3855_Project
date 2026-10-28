@@ -84,12 +84,12 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9010/stats"]
+      test: ["CMD", "curl", "-f", "http://localhost:8011/stats"]
       interval: 5s
       timeout: 5s
       retries: 5
     ports:
-      - "9010:9010"
+      - "8011:8011"
 
 volumes:
   db_data:

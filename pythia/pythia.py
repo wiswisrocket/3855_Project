@@ -25,12 +25,12 @@ STATS_KEY = "statistics"
 # Returned until Hermes has saved its first round, so /stats always answers 200
 EMPTY_STATS = {
     "num_distance_events": 0,
-    "num_steps_events": 0,
     "min_distance": None,
     "max_distance": None,
+    "last_updated_distance": None,
+    "num_steps_events": 0,
     "min_steps": None,
     "max_steps": None,
-    "last_updated_distance": None,
     "last_updated_steps": None,
 }
 

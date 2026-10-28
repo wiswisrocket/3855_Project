@@ -22,6 +22,7 @@ class Distance(Base):
             "distance": self.distance,
             "timestamp": self.timestamp.isoformat(),
             "trace_id": self.trace_id,
+            "recorded_timestamp": self.recorded_timestamp.isoformat(),
         }
 
 class Steps(Base):
@@ -39,4 +40,5 @@ class Steps(Base):
             "steps": self.steps,
             "timestamp": self.timestamp.isoformat(),
             "trace_id": self.trace_id,
+            "recorded_timestamp": self.recorded_timestamp.isoformat(),
         }
