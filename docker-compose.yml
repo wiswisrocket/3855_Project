@@ -44,6 +44,53 @@ services:
       retries: 5
     ports:
       - "8080:8080"
+      
+  # Add these three services under `services:` in docker-compose.yml,
+  # and add `redis_data:` under the top-level `volumes:` (next to db_data).
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Hermes: worker. Polls storage, updates the statistics, writes them to Redis.
+  hermes:
+    build:
+      context: hermes
+    environment:
+      STORAGE_URL: http://storage:8090
+      REDIS_URL: redis://redis:6379
+      POLL_INTERVAL_SECONDS: 5
+    depends_on:
+      storage:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Pythia: API. Reads the statistics from Redis and serves GET /stats.
+  pythia:
+    build:
+      context: pythia
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9010/stats"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "9010:9010"
 
 volumes:
   db_data:
+  redis_data:
