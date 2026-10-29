@@ -1,6 +1,7 @@
 services:
   db:
     image: mysql:8
+    container_name: db
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
       MYSQL_USER: walkr_user
@@ -16,6 +17,7 @@ services:
       retries: 12
 
   storage:
+    container_name: storage
     build:
       context: storage
     environment:
@@ -30,6 +32,7 @@ services:
       retries: 5
 
   receiver:
+    container_name: receiver
     build:
       context: receiver
     environment:
@@ -44,12 +47,10 @@ services:
       retries: 5
     ports:
       - "8080:8080"
-      
-  # Add these three services under `services:` in docker-compose.yml,
-  # and add `redis_data:` under the top-level `volumes:` (next to db_data).
 
   redis:
     image: redis:7
+    container_name: redis
     command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
     volumes:
       - redis_data:/data
@@ -59,8 +60,8 @@ services:
       timeout: 5s
       retries: 10
 
-  # Hermes: worker. Polls storage, updates the statistics, writes them to Redis.
   hermes:
+    container_name: hermes
     build:
       context: hermes
     environment:
@@ -74,8 +75,8 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  # Pythia: API. Reads the statistics from Redis and serves GET /stats.
   pythia:
+    container_name: pythia
     build:
       context: pythia
     environment:
