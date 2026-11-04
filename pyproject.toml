@@ -7,4 +7,6 @@ dependencies = [
     "connexion[swagger-ui,uvicorn]>=3.3.0",
     "sqlalchemy>=2.0",
     "mysqlclient>=2.0",
+    "aiokafka",
+    "confluent_kafka"
 ]
