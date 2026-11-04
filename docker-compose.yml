@@ -114,7 +114,7 @@ services:
       - --set redpanda.auto_create_topics_enabled=true
     image: docker.redpanda.com/redpandadata/redpanda:v26.1.10
     volumes:
-      - redpanda:var/lib/redpanda/data
+      - redpanda:/var/lib/redpanda/data
 
   redpanda-console:
     image: docker.redpanda.com/redpandadata/console:v3.7.4
