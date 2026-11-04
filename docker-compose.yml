@@ -1,7 +1,7 @@
 services:
   db:
+    container_name: mnemosyne
     image: mysql:8
-    container_name: db
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
       MYSQL_USER: walkr_user
@@ -49,8 +49,8 @@ services:
       - "8080:8080"
 
   redis:
-    image: redis:7
     container_name: redis
+    image: redis:7
     command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
     volumes:
       - redis_data:/data
@@ -93,6 +93,7 @@ services:
       - "8011:8011"
 
   redpanda:
+    container_name: agora
     command:
       - redpanda
       - start
@@ -117,6 +118,7 @@ services:
       - redpanda:/var/lib/redpanda/data
 
   redpanda-console:
+    container_name: argus
     image: docker.redpanda.com/redpandadata/console:v3.7.4
     entrypoint: /bin/sh
     command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
