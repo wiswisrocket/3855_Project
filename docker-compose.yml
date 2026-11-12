@@ -36,9 +36,11 @@ services:
     build:
       context: receiver
     environment:
-      STORAGE_SERVICE_URL: http://storage:8090
+      KAFKA_BROKER: redpanda:9092
+      KAFKA_TOPIC_1: distance
+      KAFKA_TOPIC_2: steps
     depends_on:
-      storage:
+      redpanda:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/status"]
@@ -116,6 +118,11 @@ services:
     image: docker.redpanda.com/redpandadata/redpanda:v26.1.10
     volumes:
       - redpanda:/var/lib/redpanda/data
+    healthcheck:
+    test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+    interval: 5s
+    timeout: 5s
+    retries: 12
 
   redpanda-console:
     container_name: argus

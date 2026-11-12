@@ -1,6 +1,5 @@
 import json
 import os
-import requests
 import time
 import yaml
 import logging
@@ -21,10 +20,9 @@ logging.config.dictConfig(log_config)
 logger = logging.getLogger("receiver")
 
 
-STORAGE = os.getenv("STORAGE_SERVICE_URL", "http://localhost:8090")
-
-KAFKA_BROKER = os.getenv("KAFKA_BROKER", "http://redpanda:9092")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "redpanda:9092")
 KAFKA_TOPIC_1 = os.getenv("KAFKA_TOPIC_1", "distance")
+KAFKA_TOPIC_2 = os.getenv("KAFKA_TOPIC_1", "steps")
 
 @asynccontextmanager
 async def lifespan(app):
@@ -37,29 +35,22 @@ async def lifespan(app):
         await producer.stop()
 
 async def report_distance(body):
-    # body["trace_id"] = time.time_ns()
-    # logger.info(f"Received 'distance' event - distance: {body['distance']} | trace_id:{body['trace_id']}")
-
-    # r = requests.post(f"{STORAGE}/events/distance", json=body)
-    # logger.debug(f"Response for event distance (id: {body['trace_id']}) has status {r.status_code}")
-
-    # return r.text, r.status_code
-
     data = {**body, "trace_id": time.time_ns()}
+    logger.info(f"Received 'distance' event - distance: {data['distance']} | trace_id:{data['trace_id']}")
     payload = json.dumps(data)
 
     await request.state.kafka.send(KAFKA_TOPIC_1, payload.encode("utf-8"))
 
     return NoContent, 201
 
-def report_steps(body):
-    body["trace_id"] = time.time_ns()
-    logger.info(f"Received 'steps' event - steps: {body['steps']} | trace_id:{body['trace_id']}")
+async def report_steps(body):
+    data = {**body, "trace_id": time.time_ns()}
+    logger.info(f"Received 'steps' event - steps: {data['steps']} | trace_id:{data['trace_id']}")
+    payload = json.dumps(data)
 
-    r = requests.post(f"{STORAGE}/events/steps", json=body)
-    logger.debug(f"Response for event steps (id: {body['trace_id']}) has status {r.status_code}")
+    await request.state.kafka.send(KAFKA_TOPIC_2, payload.encode("utf-8"))
 
-    return r.text, r.status_code
+    return NoContent, 201
 
 def get_status():
     return {"status": "ok"}, 200

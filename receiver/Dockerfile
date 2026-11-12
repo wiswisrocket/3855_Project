@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install connexion[uvicorn] connexion[swagger-ui] requests pyyaml
+RUN pip install connexion[uvicorn] connexion[swagger-ui] pyyaml aiokafka
 
 COPY . /app
 WORKDIR /app
