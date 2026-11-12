@@ -119,10 +119,10 @@ services:
     volumes:
       - redpanda:/var/lib/redpanda/data
     healthcheck:
-    test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
-    interval: 5s
-    timeout: 5s
-    retries: 12
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
 
   redpanda-console:
     container_name: argus

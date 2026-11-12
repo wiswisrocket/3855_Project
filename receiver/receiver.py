@@ -22,7 +22,7 @@ logger = logging.getLogger("receiver")
 
 KAFKA_BROKER = os.getenv("KAFKA_BROKER", "redpanda:9092")
 KAFKA_TOPIC_1 = os.getenv("KAFKA_TOPIC_1", "distance")
-KAFKA_TOPIC_2 = os.getenv("KAFKA_TOPIC_1", "steps")
+KAFKA_TOPIC_2 = os.getenv("KAFKA_TOPIC_2", "steps")
 
 @asynccontextmanager
 async def lifespan(app):
