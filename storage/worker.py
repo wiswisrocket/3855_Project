@@ -163,6 +163,8 @@ def main():
         "auto.offset.reset": "earliest",
         # Commit manually, only after the database save
         "enable.auto.commit": False,
+        # Re-check for new topics every 5 s, so a topic created after startup is picked up quickly
+        "topic.metadata.refresh.interval.ms": 5000,
     }
 
     consumer = Consumer(config)
