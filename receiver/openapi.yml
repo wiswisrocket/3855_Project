@@ -19,6 +19,15 @@ paths:
           description: session distance successfully received
         '400':
           description: invalid input, object invalid
+        '503':
+          description: event broker unavailable, try again later
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /events/steps:
     post:
@@ -35,6 +44,15 @@ paths:
           description: session steps successfully received
         '400':
           description: invalid input, object invalid
+        '503':
+          description: event broker unavailable, try again later
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /status:
     get:
