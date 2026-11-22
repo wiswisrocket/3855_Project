@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: mnemosyne
+    container_name: db
     image: mysql:8
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
@@ -97,7 +97,7 @@ services:
     restart: unless-stopped
 
   pythia:
-    container_name: oracle
+    container_name: pythia
     build:
       context: pythia
     environment:
@@ -115,7 +115,7 @@ services:
     restart: unless-stopped
 
   redpanda:
-    container_name: agora
+    container_name: redpanda
     command:
       - redpanda
       - start
@@ -145,7 +145,7 @@ services:
       retries: 12
 
   redpanda-console:
-    container_name: argus
+    container_name: redpanda-console
     image: docker.redpanda.com/redpandadata/console:v3.7.4
     entrypoint: /bin/sh
     command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
