@@ -8,6 +8,7 @@ import logging.config
 from db import makeSession, ENGINE
 from models import Distance, Steps, Base
 from sqlalchemy import select, func
+from sqlalchemy.exc import OperationalError
 
 from datetime import datetime
 
@@ -29,6 +30,9 @@ def use_db_session(func):
         session = makeSession()
         try:
             return func(session, *args, **kwargs)
+        except OperationalError as e:
+            logger.warning("Database unavailable for %s: %s", func.__name__, e.orig)
+            return {"message": "database unavailable"}, 503
         finally:
             session.close()
 
@@ -94,5 +98,4 @@ def reset_db():
     return {"message": "database reset"}, 200
 
 app = connexion.AsyncApp(__name__, specification_dir='')
-
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)

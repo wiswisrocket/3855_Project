@@ -35,6 +35,15 @@ paths:
                 properties:
                   message:
                     type: string
+        '503':
+          description: database unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
 
   /events/steps:
@@ -68,6 +77,15 @@ paths:
                 properties:
                   message:
                     type: string
+        '503':
+          description: database unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /status:
     get:
@@ -87,6 +105,15 @@ paths:
                     type: integer
                   steps_count:
                     type: integer
+        '503':
+          description: database unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
   /reset:
     post:
@@ -95,6 +122,15 @@ paths:
       responses:
         '200':
           description: database reset
+        '503':
+          description: database unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 
 components:
   schemas:
