@@ -14,7 +14,7 @@ class Distance(Base):
     distance = mapped_column(Float, nullable=False)
     timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
     recorded_timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
-    trace_id = mapped_column(BigInteger)
+    trace_id = mapped_column(BigInteger, unique=True, nullable=False)
     
     def to_json(self):
         return {
@@ -32,7 +32,7 @@ class Steps(Base):
     steps = mapped_column(Integer, nullable=False)
     timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
     recorded_timestamp = mapped_column(TIMESTAMP(fsp=6), default=lambda: datetime.now(UTC))
-    trace_id = mapped_column(BigInteger)
+    trace_id = mapped_column(BigInteger, unique=True, nullable=False)
 
     def to_json(self):
         return {

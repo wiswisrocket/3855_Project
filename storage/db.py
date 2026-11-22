@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 db_url = os.getenv("DATABASE_URL", "mysql://walkr_user:walkr_passwd@localhost/walkr_db")
 
-ENGINE = create_engine(db_url)
+ENGINE = create_engine(db_url, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=ENGINE)
 
 def makeSession():
