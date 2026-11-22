@@ -31,6 +31,23 @@ services:
       timeout: 5s
       retries: 5
 
+  storage-worker:
+    container_name: storage-worker
+    build:
+      context: storage
+      dockerfile: Dockerfile.worker
+    environment:
+      DATABASE_URL: mysql://walkr_user:walkr_passwd@db/walkr_db
+      KAFKA_BROKER: redpanda:9092
+      KAFKA_TOPIC_1: distance
+      KAFKA_TOPIC_2: steps
+    depends_on:
+      db:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
+    restart: unless-stopped
+
   receiver:
     container_name: receiver
     build:
