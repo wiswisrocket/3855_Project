@@ -92,7 +92,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_day">
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="random_day" enabled="true">
         <stringProp name="maximumValue">28</stringProp>
         <stringProp name="minimumValue">1</stringProp>
         <stringProp name="outputFormat">00</stringProp>
@@ -119,9 +119,9 @@
         <boolProp name="perThread">false</boolProp>
       </RandomVariableConfig>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
         <stringProp name="ThreadGroup.num_threads">${__P(threads,10)}</stringProp>
-        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,1)}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -130,7 +130,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Distance" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Distance">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -154,7 +154,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Steps" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Steps">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -177,6 +177,10 @@
             </collectionProp>
           </elementProp>
         </HTTPSamplerProxy>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+          <stringProp name="ConstantTimer.delay">${__P(delay,0)}</stringProp>
+        </ConstantTimer>
         <hashTree/>
       </hashTree>
     </hashTree>
