@@ -5,20 +5,6 @@ info:
   description: A sample API to illustrate OpenAPI concepts
 paths:
   /events/distance:
-    post:
-      summary: Reports a single walking/running session distance
-      operationId: storage.record_distance
-      description: Adds a session distance event
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SessionDistance'
-      responses:
-        '201':
-          description: session distance successfully received
-        '400':
-          description: invalid input, object invalid
     get:
       summary: Get all distance reports
       operationId: storage.get_distance_reports
@@ -52,20 +38,6 @@ paths:
 
 
   /events/steps:
-    post:
-      summary: Reports a single walking/running session step count
-      operationId: storage.record_steps
-      description: Adds a session steps event
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SessionSteps'
-      responses:
-        '201':
-          description: session steps successfully received
-        '400':
-          description: invalid input, object invalid
     get:
       summary: Get all steps reports
       operationId: storage.get_steps_reports

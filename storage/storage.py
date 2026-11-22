@@ -1,6 +1,5 @@
 import functools
 import connexion
-from connexion import NoContent
 import os
 import yaml
 import logging
@@ -34,38 +33,6 @@ def use_db_session(func):
             session.close()
 
     return wrapper
-
-@use_db_session
-def record_distance(session, body):
-    event = Distance(
-        device_id = body["device_id"],
-        distance = body["distance"],
-        timestamp = datetime.fromisoformat(body["timestamp"]),
-        trace_id = body["trace_id"]
-    )
-
-    session.add(event)
-    session.commit()
-    logger.debug(f"Stored event 'distance' with a trace id of {body['trace_id']}")
-
-    print("Recorded distance: ", body)
-    return NoContent, 201
-
-@use_db_session
-def record_steps(session, body):
-    event = Steps(
-        device_id = body["device_id"],
-        steps = body["steps"],
-        timestamp = datetime.fromisoformat(body["timestamp"]),
-        trace_id = body["trace_id"]
-    )
-    
-    session.add(event)
-    session.commit()
-    logger.debug(f"Stored event 'steps' with a trace id of {body['trace_id']}")
-
-    print("Recorded steps: ", body)
-    return NoContent, 201
 
 
 @use_db_session
@@ -119,10 +86,10 @@ def get_status(session):
 
 def reset_db():
     Base.metadata.drop_all(ENGINE)
-    print("Tables dropped!")
+    logger.info("Tables dropped!")
 
     Base.metadata.create_all(ENGINE)
-    print("Tables created!")
+    logger.info("Tables created!")
 
     return {"message": "database reset"}, 200
 
