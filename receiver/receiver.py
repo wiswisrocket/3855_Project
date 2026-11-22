@@ -43,7 +43,7 @@ async def start_producer():
             return producer
         except KafkaConnectionError:
             # Cannot connect: backoff and retry
-            logger.warning(f"Kafka not reachable, retrying ins {delay}")
+            logger.warning(f"Kafka not reachable, retrying in {delay}s")
             await producer.stop()
             await asyncio.sleep(delay)
             # Max delay =30s

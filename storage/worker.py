@@ -17,8 +17,8 @@ import yaml
 from confluent_kafka import Consumer, KafkaException
 from sqlalchemy.exc import IntegrityError, OperationalError, SQLAlchemyError
 
-from db import ENGINE, makeSession
-from models import Base, Distance, Steps
+from db import makeSession, wait_for_database
+from models import Distance, Steps
 
 LOG_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "log_conf.yml")
 
@@ -64,20 +64,6 @@ BUILDERS = {
 def handle_sigterm(signum, frame):
     # `docker stop` sends SIGTERM: treat it like Ctrl-C so the finally block closes the consumer
     raise KeyboardInterrupt
-
-
-def wait_for_database():
-    """Create the tables, retrying while MySQL is unreachable."""
-    delay = 1
-    while True:
-        try:
-            Base.metadata.create_all(ENGINE)
-            logger.info("Database ready")
-            return
-        except OperationalError as e:
-            logger.warning("Database unavailable at startup (%s), retrying in %ss", e.orig, delay)
-            time.sleep(delay)
-            delay = min(delay * 2, MAX_BACKOFF_SECONDS)
 
 
 def save_event(row):

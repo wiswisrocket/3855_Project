@@ -5,7 +5,7 @@ import yaml
 import logging
 import logging.config
 
-from db import makeSession, ENGINE
+from db import makeSession, ENGINE, wait_for_database
 from models import Distance, Steps, Base
 from sqlalchemy import select, func
 from sqlalchemy.exc import OperationalError
@@ -20,8 +20,7 @@ with open(LOG_CONFIG_PATH, "r") as f:
 logging.config.dictConfig(log_config)
 logger = logging.getLogger("storage")
 
-# A fresh MySQL container has no tables; create_all skips tables that already exist
-Base.metadata.create_all(ENGINE)
+wait_for_database()
 
 
 def use_db_session(func):
@@ -89,13 +88,19 @@ def get_status(session):
             }, 200
 
 def reset_db():
-    Base.metadata.drop_all(ENGINE)
-    logger.info("Tables dropped!")
+    try:
+        Base.metadata.drop_all(ENGINE)
+        logger.info("Tables dropped!")
 
-    Base.metadata.create_all(ENGINE)
-    logger.info("Tables created!")
+        Base.metadata.create_all(ENGINE)
+        logger.info("Tables created!")
+
+    except OperationalError as e:
+        logger.warning("Database unavailable for reset_db: %s", e.orig)
+        return {"message": "database unavailable"}, 503
 
     return {"message": "database reset"}, 200
+
 
 app = connexion.AsyncApp(__name__, specification_dir='')
 app.add_api("openapi.yml", strict_validation=True, validate_responses=True)
