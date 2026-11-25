@@ -5,8 +5,8 @@
     "name": "adk6hrs",
     "namespace": "default",
     "uid": "d3b9abe5-3c07-4d75-a5f8-4e0b650cecca",
-    "resourceVersion": "1795593062103997",
-    "generation": 7,
+    "resourceVersion": "1795593457300002",
+    "generation": 11,
     "creationTimestamp": "2026-11-25T07:48:49Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "4301494169391104"
@@ -21,7 +21,7 @@
       "grafana.app/sourcePath": "/etc/grafana/dashboards/walkr.json",
       "grafana.app/sourceTimestamp": "1795592892000",
       "grafana.app/updatedBy": "user:fg5chri46t43kf",
-      "grafana.app/updatedTimestamp": "2026-11-25T07:51:02Z"
+      "grafana.app/updatedTimestamp": "2026-11-25T07:57:37Z"
     }
   },
   "spec": {
@@ -301,10 +301,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -342,7 +338,7 @@
                       "spec": {
                         "editorMode": "code",
                         "expr": "sum(vectorized_cluster_partition_end_offset{topic=\"distance\"}) - sum(vectorized_cluster_partition_start_offset{topic=\"distance\"})",
-                        "legendFormat": "__auto",
+                        "legendFormat": "Distance",
                         "range": true
                       }
                     },
@@ -364,7 +360,7 @@
                         "editorMode": "code",
                         "expr": "sum(vectorized_cluster_partition_end_offset{topic=\"steps\"}) - sum(vectorized_cluster_partition_start_offset{topic=\"steps\"})",
                         "instant": false,
-                        "legendFormat": "__auto",
+                        "legendFormat": "Steps",
                         "range": true
                       }
                     },
@@ -698,10 +694,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -727,7 +719,7 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 8,
+              "height": 7,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-1"
@@ -740,7 +732,7 @@
               "x": 12,
               "y": 0,
               "width": 12,
-              "height": 20,
+              "height": 19,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-3"
@@ -751,7 +743,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 8,
+              "y": 7,
               "width": 12,
               "height": 6,
               "element": {
@@ -764,7 +756,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 14,
+              "y": 13,
               "width": 12,
               "height": 6,
               "element": {
@@ -777,7 +769,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 20,
+              "y": 19,
               "width": 24,
               "height": 5,
               "element": {
@@ -790,7 +782,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 25,
+              "y": 24,
               "width": 24,
               "height": 9,
               "element": {
@@ -807,7 +799,7 @@
     "preload": false,
     "tags": [],
     "timeSettings": {
-      "timezone": "browser",
+      "timezone": "America/Vancouver",
       "from": "now-6h",
       "to": "now",
       "autoRefresh": "",
