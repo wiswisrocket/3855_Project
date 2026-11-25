@@ -4,12 +4,12 @@
   "metadata": {
     "name": "adk6hrs",
     "namespace": "default",
-    "uid": "d3b9abe5-3c07-4d75-a5f8-4e0b650cecca",
-    "resourceVersion": "1795593457300002",
-    "generation": 11,
-    "creationTimestamp": "2026-11-25T07:48:49Z",
+    "uid": "822f3f8d-3c7c-47f9-8f61-87fa1f9755a4",
+    "resourceVersion": "1795599548409994",
+    "generation": 2,
+    "creationTimestamp": "2026-11-25T09:38:08Z",
     "labels": {
-      "grafana.app/deprecatedInternalID": "4301494169391104"
+      "grafana.app/deprecatedInternalID": "4329001792876544"
     },
     "annotations": {
       "grafana.app/createdBy": "access-policy:service",
@@ -17,11 +17,11 @@
       "grafana.app/managerAllowsEdits": "true",
       "grafana.app/managerId": "walkr",
       "grafana.app/saved-from-ui": "Grafana v13.1.3 (45a27d64b6)",
-      "grafana.app/sourceChecksum": "adf0f8f079a6f40bda1ed8b1cbc377c2",
+      "grafana.app/sourceChecksum": "37d969df5e88edb70e13ae31c2db007a",
       "grafana.app/sourcePath": "/etc/grafana/dashboards/walkr.json",
-      "grafana.app/sourceTimestamp": "1795592892000",
-      "grafana.app/updatedBy": "user:fg5chri46t43kf",
-      "grafana.app/updatedTimestamp": "2026-11-25T07:57:37Z"
+      "grafana.app/sourceTimestamp": "1795593583000",
+      "grafana.app/updatedBy": "user:dg5criiy8vls0d",
+      "grafana.app/updatedTimestamp": "2026-11-25T09:39:08Z"
     }
   },
   "spec": {
@@ -480,7 +480,7 @@
                       "spec": {
                         "direction": "backward",
                         "editorMode": "code",
-                        "expr": "{service=~\".+\"} |= \"$trace_id\"",
+                        "expr": "{service=~\".+\"} |= \"trace_id\" |= \"$trace_id\"",
                         "queryType": "range"
                       }
                     },

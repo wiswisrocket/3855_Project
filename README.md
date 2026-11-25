@@ -11,8 +11,8 @@ redis: http://localhost:8011/stats
 
 kafka/redpanda: http://localhost:8085
 
-prometheus: localhost:9090/targets
+prometheus: http://localhost:9090/targets
 
-alloy: localhost:12345
+alloy: http://localhost:12345
 
-grafana: localhost:3000
+grafana: http://localhost:3000
