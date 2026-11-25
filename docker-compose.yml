@@ -168,15 +168,13 @@ services:
     depends_on:
       - redpanda
 
-  # --- Observability (Lab 11) ---
-
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
-      - "9090:9090"   # optional: lets you show Status -> Targets during the demo
+      - "9090:9090"
     depends_on:
       - redpanda
 
