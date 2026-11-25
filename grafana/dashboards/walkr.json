@@ -4,18 +4,24 @@
   "metadata": {
     "name": "adk6hrs",
     "namespace": "default",
-    "uid": "8ae52418-3f8c-4d06-9008-e79b3e250823",
-    "resourceVersion": "1795591987246982",
-    "generation": 18,
-    "creationTimestamp": "2026-11-25T06:57:50Z",
+    "uid": "d3b9abe5-3c07-4d75-a5f8-4e0b650cecca",
+    "resourceVersion": "1795593062103997",
+    "generation": 7,
+    "creationTimestamp": "2026-11-25T07:48:49Z",
     "labels": {
-      "grafana.app/deprecatedInternalID": "4288663454527488"
+      "grafana.app/deprecatedInternalID": "4301494169391104"
     },
     "annotations": {
-      "grafana.app/createdBy": "user:dg5cb9azqmpdse",
+      "grafana.app/createdBy": "access-policy:service",
+      "grafana.app/managedBy": "classic-file-provisioning",
+      "grafana.app/managerAllowsEdits": "true",
+      "grafana.app/managerId": "walkr",
       "grafana.app/saved-from-ui": "Grafana v13.1.3 (45a27d64b6)",
-      "grafana.app/updatedBy": "user:dg5cb9azqmpdse",
-      "grafana.app/updatedTimestamp": "2026-11-25T07:33:07Z"
+      "grafana.app/sourceChecksum": "adf0f8f079a6f40bda1ed8b1cbc377c2",
+      "grafana.app/sourcePath": "/etc/grafana/dashboards/walkr.json",
+      "grafana.app/sourceTimestamp": "1795592892000",
+      "grafana.app/updatedBy": "user:fg5chri46t43kf",
+      "grafana.app/updatedTimestamp": "2026-11-25T07:51:02Z"
     }
   },
   "spec": {
@@ -175,7 +181,8 @@
                     ]
                   },
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "fixed",
+                    "fixedColor": "#7dfff1"
                   }
                 },
                 "overrides": []
@@ -272,7 +279,7 @@
             "version": "13.1.3",
             "spec": {
               "options": {
-                "colorMode": "none",
+                "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "center",
                 "orientation": "vertical",
@@ -669,9 +676,9 @@
             "version": "13.1.3",
             "spec": {
               "options": {
-                "colorMode": "none",
+                "colorMode": "value",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -699,7 +706,8 @@
                     ]
                   },
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "fixed",
+                    "fixedColor": "yellow"
                   }
                 },
                 "overrides": []
@@ -732,7 +740,7 @@
               "x": 12,
               "y": 0,
               "width": 12,
-              "height": 21,
+              "height": 20,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-3"
@@ -748,7 +756,7 @@
               "height": 6,
               "element": {
                 "kind": "ElementReference",
-                "name": "panel-6"
+                "name": "panel-2"
               }
             }
           },
@@ -758,10 +766,10 @@
               "x": 0,
               "y": 14,
               "width": 12,
-              "height": 7,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
-                "name": "panel-2"
+                "name": "panel-6"
               }
             }
           },
@@ -769,7 +777,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 21,
+              "y": 20,
               "width": 24,
               "height": 5,
               "element": {
@@ -782,7 +790,7 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 26,
+              "y": 25,
               "width": 24,
               "height": 9,
               "element": {
