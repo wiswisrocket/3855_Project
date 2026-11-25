@@ -1,0 +1,39 @@
+discovery.docker "containers" {
+  // We use the Docker socket to access container logs
+  host = "unix:///var/run/docker.sock"
+}
+
+// This defines how Alloy is changing the original Docker labels
+discovery.relabel "docker_labels" {
+  targets = discovery.docker.containers.targets
+
+  rule {
+    // This Docker label, hard to read
+    source_labels = ["__meta_docker_container_name"]
+    // that starts with a slash
+    regex         = "/(.*)"
+    // will be renamed to "container"
+    target_label  = "container"
+  }
+
+  rule {
+    // This Docker label, hard to read
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    // will be renamed to "service"
+    target_label  = "service"
+  }
+}
+
+// Scrape stdout/stderr logs from discovered containers and forward to Loki
+loki.source.docker "default" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_labels.output
+  forward_to = [loki.write.local_loki.receiver]
+}
+
+// Define the 'local_loki' used above: send to Loki container
+loki.write "local_loki" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

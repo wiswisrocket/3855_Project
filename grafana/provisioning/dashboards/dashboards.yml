@@ -1,0 +1,10 @@
+# Loads any dashboard JSON exported into grafana/dashboards/ at startup.
+# allowUiUpdates lets you keep editing and saving it in the Grafana UI.
+apiVersion: 1
+
+providers:
+  - name: walkr
+    type: file
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/dashboards

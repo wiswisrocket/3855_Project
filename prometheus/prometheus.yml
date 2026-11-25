@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # Polling frequency
+
+scrape_configs:
+  - job_name: 'redpanda'
+    # Redpanda's Prometheus-compatible endpoint (topic offsets, cluster health)
+    static_configs:
+      - targets: ['redpanda:9644']

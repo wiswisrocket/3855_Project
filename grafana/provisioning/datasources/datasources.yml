@@ -1,0 +1,31 @@
+# Grafana creates these data sources at startup, so they survive `docker compose down -v`
+# and appear under Connections -> Data sources exactly as if added by hand.
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+
+  - name: Loki
+    type: loki
+    uid: loki
+    access: proxy
+    url: http://loki:3100
+
+  - name: MySQL
+    type: mysql
+    uid: mysql
+    url: db:3306
+    user: walkr_user
+    jsonData:
+      database: walkr_db
+    secureJsonData:
+      password: walkr_passwd
+
+  - name: Infinity
+    type: yesoreyeram-infinity-datasource
+    uid: infinity
