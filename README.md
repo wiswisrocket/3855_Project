@@ -7,6 +7,8 @@ docker compose exec receiver curl -X POST http://storage:8090/reset
 
 docker compose exec receiver curl -s http://storage:8090/status
 
+storage http://localhost:8090/ui
+
 redis: http://localhost:8011/stats
 
 kafka/redpanda: http://localhost:8085

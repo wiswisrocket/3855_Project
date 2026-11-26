@@ -29,7 +29,7 @@ POLL_INTERVAL = float(os.getenv("POLL_INTERVAL_SECONDS", "5"))
 STATS_KEY = "statistics"
 HTTP_TIMEOUT = 5  # seconds
 
-# A fresh start: nothing counted, no min/max yet, and no cursor (None = ask storage for everything)
+# fresh start
 DEFAULT_STATS = {
     "num_distance_events": 0,
     "num_steps_events": 0,
@@ -121,7 +121,7 @@ def run_round(http, client):
 
 def main():
     stop = threading.Event()
-    # `docker compose stop` sends SIGTERM: finish the current wait and exit cleanly
+
     signal.signal(signal.SIGTERM, lambda *_: stop.set())
     signal.signal(signal.SIGINT, lambda *_: stop.set())
 

@@ -62,7 +62,6 @@ BUILDERS = {
 
 
 def handle_sigterm(signum, frame):
-    # `docker stop` sends SIGTERM: treat it like Ctrl-C so the finally block closes the consumer
     raise KeyboardInterrupt
 
 
@@ -81,7 +80,7 @@ def save_event(row):
                 session.commit()
                 return "stored"
             except IntegrityError:
-                # trace_id is unique: this message was already saved (redelivery)
+                # Message already saved (redelivery)
                 session.rollback()
                 return "duplicate"
             except OperationalError as e:
@@ -98,8 +97,6 @@ def commit_offset(consumer, msg):
     try:
         consumer.commit(message=msg, asynchronous=False)
     except KafkaException as e:
-        # e.g. the group rebalanced during a long database outage: the message will
-        # be delivered again, and the unique trace_id makes the second save a no-op
         logger.warning("Offset commit failed (%s); message may be redelivered", e)
 
 
@@ -116,7 +113,7 @@ def process_message(consumer, msg):
         event = json.loads(msg.value().decode("utf-8"))
         row = builder(event)
     except (ValueError, UnicodeDecodeError, KeyError, TypeError) as e:
-        # Bad JSON or missing/invalid fields: retrying would never succeed, so skip it
+        # Bad JSON or missing/invalid fields, SKIP
         logger.error("Malformed message on %s at offset %d (%s), skipping", topic, msg.offset(), e)
         commit_offset(consumer, msg)
         return
@@ -124,7 +121,7 @@ def process_message(consumer, msg):
     try:
         result = save_event(row)
     except SQLAlchemyError:
-        # Not a connection problem (e.g. invalid data for a column): skipping is the only way forward
+        # Not a connection problem (e.g. invalid data for a column): skip
         logger.exception("Permanent database error on %s at offset %d, skipping", topic, msg.offset())
         commit_offset(consumer, msg)
         return

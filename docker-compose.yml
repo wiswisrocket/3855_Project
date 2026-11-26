@@ -31,7 +31,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - "8090:8090"   # Swagger UI at localhost:8090/ui for the defense
+      - "8090:8090"
     restart: unless-stopped
 
   storage-worker:
